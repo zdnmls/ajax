@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+        <!--
+        AJAX包括以下几个步骤。
+            1.创建AJAX对象
+            2.发出HTTP请求
+            3.接收服务器传回的数据
+            4.更新网页数据
+        -->
+<style>
+
+</style>
+<body>
+<form action="index.php" method='post'>
+    账号：<input type="text" name='user'>
+    密码：<input type="text" name='pass'>
+    <button type="button">提交</button>
+</form>
+</body>
+</html>
+<script>
+    function ajax(obj) {
+        let aj=window.XMLHttpRequest? new XMLHttpRequest():new ActiveXObject('Microsoft.XMLHTTP');
+        if(obj.type=='post'){
+            aj.open(obj.type,obj.url+'?'+obj.date,obj.asynch);
+            aj.send();
+        }else{
+    // open方式用于指定HTTP动词、请求的网址、是否异步
+            aj.open(obj.type,obj.url,obj.asynch);
+    // 发送HTTP请求
+            aj.send(obj.date);
+        };
+        obj.success(){
+            aj.onreadystatechange=function () {
+                if(aj.readyState===4){
+                    if(aj.status===200){
+                        return aj.responseText;
+                    }
+                }
+            }
+        }
+        console.log(obj.success);
+    };
+    ajax({
+        //url
+        url:'index.php',
+        //方法类型
+        type:'post',
+        //服务端接收的数据类型
+        date:'aa=bb&cc=dd',
+        asynch:true,
+        //打印服务端返回的数据(调试用)
+        success:function (num) {
+            console.log(num)
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
